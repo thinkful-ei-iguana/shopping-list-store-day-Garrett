@@ -1,3 +1,5 @@
+'use strict';
+
 const store = {
   items: [
     { id: cuid(), name: 'apples', checked: false },
@@ -12,7 +14,7 @@ const generateItemElement = function (item) {
   let itemTitle = `<span class='shopping-item shopping-item__checked'>${item.name}</span>`;
   if (!item.checked) {
     itemTitle = `
-     <span class='shopping-item'>${item.name}</span>
+    <span class='shopping-item'>${item.name}</span>
     `;
   }
 
