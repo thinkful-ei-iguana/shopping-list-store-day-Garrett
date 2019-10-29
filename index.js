@@ -10,6 +10,22 @@ const store = {
   hideCheckedItems: false
 };
 
+//user can edit the title of an item
+function handleEditClickedItem() {
+  $('.js-shopping-list').on('click', '.js-item-edit', event => {
+    const itemID = getItemIdFromElement(event.currentTarget);
+    const newName = prompt('Enter a new item name');
+    changeItemName(itemID, newName);
+    render();
+  });
+}
+
+
+function changeItemName(itemID, newName) {
+  const item = store.items.find(item => item.id === itemID);
+  item.name = newName;
+}
+
 const generateItemElement = function (item) {
   let itemTitle = `<span class='shopping-item shopping-item__checked'>${item.name}</span>`;
   if (!item.checked) {
@@ -22,6 +38,9 @@ const generateItemElement = function (item) {
     <li class='js-item-element' data-item-id='${item.id}'>
       ${itemTitle}
       <div class='shopping-item-controls'>
+        <button class="shopping-item-edit js-item-edit">
+          <span class="button-label">edit</span>
+        </button> 
         <button class='shopping-item-toggle js-item-toggle'>
           <span class='button-label'>check</span>
         </button>
@@ -162,6 +181,7 @@ const handleShoppingList = function () {
   handleItemCheckClicked();
   handleDeleteItemClicked();
   handleToggleFilterClick();
+  handleEditClickedItem();
 };
 
 // when the page loads, call `handleShoppingList`
